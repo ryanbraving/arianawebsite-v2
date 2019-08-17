@@ -1,49 +1,83 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
- */
-
 import React from "react"
 import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
-
-import Header from "./header"
-import "./layout.css"
+import { createGlobalStyle } from "styled-components"
+import Navbar from "../components/globals/navbar"
+import Footer from "../components/globals/Footer"
+import "./fonts.css"
 
 const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
-
   return (
-    <>
-      <Header siteTitle={data.site.siteMetadata.title} />
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `0px 1.0875rem 1.45rem`,
-          paddingTop: 0,
-        }}
-      >
-        <main>{children}</main>
-        <footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
-        </footer>
-      </div>
-    </>
+    <React.Fragment>
+      <GlobalStyle />
+      {/* <ContextProviderComponent> */}
+      <Navbar />
+      {children}
+      <Footer />
+      {/* </ContextProviderComponent> */}
+    </React.Fragment>
   )
 }
+
+const GlobalStyle = createGlobalStyle`
+  *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+  }
+  
+  body{
+    font-family: 'Vazir', 'Segoe UI', sans-serif;
+    font-display: 'Segoe UI';
+      /* font-family: 'Open Sans', sans-serif; */
+      /* font-family: 'Caveat', cursive; */
+      color: black;
+      background: #fff;
+      /* @font-face {
+    font-family: Vazir;
+    src: url('Vazir.eot');
+    src: url('Vazir.eot?#iefix') format('embedded-opentype'),
+         url('Vazir.woff2') format('woff2'),
+         url('Vazir.woff') format('woff'),
+         url('Vazir.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+} */
+  }
+`
+
+// const Layout = ({ children }) => (
+//   <StaticQuery
+//     query={graphql`
+//       query SiteTitleQuery {
+//         site {
+//           siteMetadata {
+//             title
+//           }
+//         }
+//       }
+//     `}
+//     render={data => (
+//       <>
+//         <Header siteTitle={data.site.siteMetadata.title} />
+//         <div
+//           style={{
+//             margin: `0 auto`,
+//             maxWidth: 960,
+//             padding: `0px 1.0875rem 1.45rem`,
+//             paddingTop: 0,
+//           }}
+//         >
+//           {children}
+//           <footer>
+//             © {new Date().getFullYear()}, Built with
+//             {` `}
+//             <a href="https://www.gatsbyjs.org">Gatsby</a>
+//           </footer>
+//         </div>
+//       </>
+//     )}
+//   />
+// )
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
